@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.epam.tc.com/web"
+	xmlns:tns="http://www.epam.tc.com/web">
+	<element name="web-app">
+		<complexType>
+			<sequence maxOccurs="unbounded">
+				<choice>
+					<element name="display-name" type="string"></element>
+					<element name="welcome-file-list" type="tns:welcome-file"></element>
+					<element name="filter" type="tns:filter"></element>
+					<element name="filter-mapping" type="tns:filter-mapping"></element>
+					<element name="listener" type="tns:listener"></element>
+					<element name="servlet" type="tns:servlet"></element>
+					<element name="servlet-mapping" type="tns:servlet-mapping"></element>
+					<element name="error-page" type="tns:error-page"></element>
+				</choice>
+			</sequence>
+			<attribute name="id" type="string" use="required" />
+			<attribute name="version" type="string" use="required" />
+		</complexType>
+	</element>
+
+	<complexType name="welcome-file">
+		<sequence>
+			<element name="welcome-file" type="string" minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="filter">
+		<sequence>
+			<element name="filter-name" type="string" />
+			<element name="filter-class" type="string" />
+			<element name="init-param" type="tns:init-param" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="filter-mapping">
+		<sequence>
+			<element name="filter-name" type="string" />
+			<element name="url-pattern" type="tns:url-patern" />
+			<element name="dispatcher" type="string" />
+		</sequence>
+	</complexType>
+	
+	<simpleType name="url-patern">
+		<restriction base="string">
+			<pattern value="[\S]+"></pattern>
+		</restriction>
+	</simpleType>
+
+	<complexType name="listener">
+		<sequence>
+			<element name="listener-class" type="string" />
+		</sequence>
+	</complexType>
+
+	<complexType name="servlet">
+		<sequence>
+			<element name="servlet-name" type="string" />
+			<element name="servlet-class" type="string" />
+			<element name="init-param" type="tns:init-param" minOccurs="0"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<complexType name="servlet-mapping">
+		<sequence>
+			<element name="servlet-name" type="string" />
+			<element name="url-pattern" type="tns:url-patern" />
+		</sequence>
+	</complexType>
+
+	<complexType name="error-page">
+		<sequence>
+			<choice>
+				<element name="exception-type" type="string" />
+				<element name="error-code" type="string" />
+			</choice>
+			<element name="location" type="string" />
+		</sequence>
+	</complexType>
+
+	<complexType name="init-param">
+		<sequence>
+			<element name="param-name" type="string" />
+			<element name="param-value" type="string" />
+		</sequence>
+	</complexType>
+
+</schema>
